@@ -332,7 +332,7 @@ tr:hover { background: var(--gh-navy-tint); }
          src="https://www.greenhonchos.com/wp-content/uploads/2024/04/Group-2@2x.png"
          alt="GreenHonchos"/>
     <div class="appbar-title">
-      <h1>GreenHonchos CWV Intelligence Dashboard</h1>
+      <h1>CWV Intelligence Dashboard</h1>
       <div class="sub">Real-user Core Web Vitals · 25-week trends from Chrome UX Report</div>
     </div>
     <div class="appbar-spacer"></div>
@@ -555,6 +555,13 @@ function init() {
     }
   }
   brandInput.addEventListener("input", applyBrandSelection);
+  // Seamless dropdown UX: clearing the input on focus opens the FULL brand
+  // datalist immediately, so users can switch brands without manually
+  // hitting the "x" to clear the current one first. If they click away
+  // without picking, the blur handler restores the active brand.
+  brandInput.addEventListener("focus", () => {
+    brandInput.value = "";
+  });
   brandInput.addEventListener("blur", () => {
     const cur = DATA.brands[state.brand].name;
     if (brandInput.value.trim() !== cur) brandInput.value = cur;
